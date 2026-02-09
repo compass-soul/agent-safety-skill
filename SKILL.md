@@ -1,6 +1,6 @@
 ---
 name: agent-safety
-description: Safety toolkit for autonomous AI agents. Pre-publish security scanning (API keys, tokens, PII, internal paths), git pre-commit hooks that block unsafe commits, and a health check script for system monitoring. Use when publishing to GitHub, committing code, or running periodic system health checks. Provides automated enforcement — not just prompts.
+description: Outbound safety for autonomous AI agents — scans YOUR output before it leaves the machine. Git pre-commit hooks that automatically block commits containing API keys, tokens, PII, or secrets. Unlike inbound scanners (Skillvet, IronClaw), this protects against what YOU accidentally publish. Use when committing to git repos, publishing to GitHub, or running periodic system health checks. Automated enforcement at the git level — not prompts.
 ---
 
 # Agent Safety

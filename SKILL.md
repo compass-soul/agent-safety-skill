@@ -7,18 +7,19 @@ description: Safety toolkit for autonomous AI agents. Pre-publish security scann
 
 Automated safety tools for autonomous AI agents. The principle: **don't rely on prompts for safety — automate enforcement.**
 
+All scripts are in this skill's `scripts/` directory. When OpenClaw loads this skill, resolve paths relative to this file's location.
+
 ## Pre-Publish Security Scan
 
 Scans files for secrets, PII, and internal paths before publishing.
 
 ```bash
-bash <skill-dir>/scripts/pre-publish-scan.sh <file-or-directory>
+bash scripts/pre-publish-scan.sh <file-or-directory>
 ```
 
 **Detects:**
 - API keys (AWS, GitHub, Anthropic, OpenAI, generic patterns)
-- Private keys (PEM blocks)
-- Bearer tokens, hardcoded passwords
+- Private keys (PEM blocks), Bearer tokens, hardcoded passwords
 - Email addresses, phone numbers, SSNs, credit card patterns
 - Physical addresses, name fields
 - Home directory paths, internal config paths
@@ -30,7 +31,7 @@ bash <skill-dir>/scripts/pre-publish-scan.sh <file-or-directory>
 Install once per repo. Automatically scans staged files on every commit:
 
 ```bash
-bash <skill-dir>/scripts/install-hook.sh <repo-path>
+bash scripts/install-hook.sh <repo-path>
 ```
 
 - Scans staged content (what's being committed, not working tree)
@@ -45,7 +46,7 @@ bash <skill-dir>/scripts/install-hook.sh <repo-path>
 System monitoring for disk, workspace, security, and updates:
 
 ```bash
-bash <skill-dir>/scripts/health-check.sh
+bash scripts/health-check.sh
 ```
 
 **Checks:** Disk usage, workspace size, memory file growth, OpenClaw version, macOS updates, firewall status, SIP status.

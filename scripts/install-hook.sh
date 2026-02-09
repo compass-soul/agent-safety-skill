@@ -67,8 +67,12 @@ fi
 echo "✅ Security scan passed."
 HOOKEOF
 
-# Inject actual path
-sed -i '' "s|__SCAN_SCRIPT__|$SCAN_SCRIPT|g" "$HOOK"
+# Inject actual path (portable across macOS and Linux)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  sed -i '' "s|__SCAN_SCRIPT__|$SCAN_SCRIPT|g" "$HOOK"
+else
+  sed -i "s|__SCAN_SCRIPT__|$SCAN_SCRIPT|g" "$HOOK"
+fi
 chmod +x "$HOOK"
 
 echo "✅ Pre-commit hook installed at $HOOK"

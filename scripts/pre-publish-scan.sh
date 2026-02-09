@@ -142,6 +142,33 @@ for f in $FILES; do
     note "$f — OpenClaw internal path — verify intended"
   fi
 
+  # --- DANGEROUS CODE PATTERNS ---
+
+  # Exfiltration endpoints
+  if echo "$CONTENT" | grep -qiE '(webhook\.site|ngrok\.io|pipedream|requestbin|burpcollaborator|interact\.sh|oastify)'; then
+    warn "$f — Known exfiltration endpoint detected"
+  fi
+
+  # Reverse shell patterns
+  if echo "$CONTENT" | grep -qE '(mkfifo|/dev/tcp/|ncat\s.*-e|nc\s.*-e)'; then
+    warn "$f — Possible reverse shell pattern"
+  fi
+
+  # Bulk env harvesting
+  if echo "$CONTENT" | grep -qE '(\$\{!.*@\}|printenv\s*$|printenv\s*\|)'; then
+    warn "$f — Bulk environment variable harvesting"
+  fi
+
+  # Code obfuscation
+  if echo "$CONTENT" | grep -qE '(eval\s*\(.*base64|atob\s*\(|Buffer\.from\s*\(.*(base64|hex))'; then
+    note "$f — Possible code obfuscation — verify intended"
+  fi
+
+  # Path traversal
+  if echo "$CONTENT" | grep -qE '(\.\./\.\./|/etc/passwd|/etc/shadow|~\/\.ssh|~\/\.aws)'; then
+    warn "$f — Path traversal or sensitive file access pattern"
+  fi
+
 done
 
 echo ""
